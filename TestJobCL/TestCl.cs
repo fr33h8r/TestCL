@@ -23,9 +23,12 @@ namespace TestJobCL
         {
             const string pairsPattern = @"\d+\D";
 
-            var matchCollection = Regex.Matches(text, pairsPattern);
+            var matchCollection = Regex.Matches(text, pairsPattern)
+                .Cast<Match>()
+                .Select(a => a.Value)
+                .ToList();
 
-            var pairs = (from Match match in matchCollection select match.Value)
+            var pairs = matchCollection
                 .Select(item => new
                                     {
                                         key = int.Parse(item.Substring(0, item.Length - 1)),
