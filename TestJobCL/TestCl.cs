@@ -26,7 +26,11 @@ namespace TestJobCL
             var matchCollection = Regex.Matches(text, pairsPattern);
 
             var pairs = (from Match match in matchCollection select match.Value)
-                .Select(item => new {key = int.Parse(item.Substring(0, item.Length - 1)), value = item.Last()})
+                .Select(item => new
+                                    {
+                                        key = int.Parse(item.Substring(0, item.Length - 1)),
+                                        value = item.Last()
+                                    })
                 .ToList();
 
             return string.Join("", pairs.OrderBy(p => p.key).Select(p => p.value).ToList());
