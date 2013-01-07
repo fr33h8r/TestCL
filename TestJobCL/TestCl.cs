@@ -24,19 +24,17 @@ namespace TestJobCL
             const string pairsPattern = @"\d+\D";
 
             var matchCollection = Regex.Matches(text, pairsPattern)
-                .Cast<Match>()
-                .Select(a => a.Value)
-                .ToList();
+                                       .Cast<Match>()
+                                       .Select(a => a.Value);
 
             var pairs = matchCollection
                 .Select(item => new
                                     {
                                         key = int.Parse(item.Substring(0, item.Length - 1)),
                                         value = item.Last()
-                                    })
-                .ToList();
+                                    });
 
-            return string.Join("", pairs.OrderBy(p => p.key).Select(p => p.value).ToList());
+            return string.Join("", pairs.OrderBy(p => p.key).Select(p => p.value));
         }
     }
 
